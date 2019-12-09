@@ -5,8 +5,11 @@ Using this repo you can build a private data shring app with contextual access a
 * Google Cloud account
 * Domain name and ability to add records (you can try using IPs but chrome is unhappy about certs on IPs)
 
-# Video URL <TODO>
-# Super-quick download a zip/unpack and run <TODO>
+# Video URL 
+--- TODO
+
+# Super-quick download a zip/unpack and run
+--- TODO
 
 # Build a Gospel backend
 * Go to https://console.cloud.google.com/
