@@ -51,7 +51,7 @@ Configure the app
 * npm run build
 * Now copy the build directory to /var/www/app
 * See the nginx config files to implement the reverse_proxy setup to host the app and send traffic to the back end
-* '''ln -s /etc/nginx/sites-available/talentdb /etc/nginx/sites-enabled/talentdb'''
+* Make the site live doing "ln -s /etc/nginx/sites-available/talentdb /etc/nginx/sites-enabled/talentdb"
 
 # Next steps include
 * In GKE, find and edit the 'gospel-ca' deployment on ~line 55. 
@@ -66,4 +66,3 @@ Hitting talentdb.gus.io for me, shows the index.html file of the build directory
 Use the accounts provided when the back-end completed. Start with account viewer1
 
 Right! Now you can start playing around and see what is connected to what. Try changing the app into a system for sensitive scanned documents for the NHS or a Bank.
-
