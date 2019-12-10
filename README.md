@@ -8,9 +8,6 @@ Using this repo you can build a private data shring app with contextual access a
 # Video URL 
 --- TODO
 
-# Super-quick download a zip/unpack and run
---- TODO
-
 # Build a Gospel backend
 * Go to https://console.cloud.google.com/
 * Build a Kubernetes/GKE cluster with at least 3 x n1-standard-2 nodes [5 minutes]
@@ -52,12 +49,16 @@ Configure the app
 * This is where you set how the app works. You need to give it your VM's IP or 
 * npm install
 * npm run build
-* Now copy the build directory to /var/www/
+* Now copy the build directory to /var/www/app
 * See the nginx config files to implement the reverse_proxy setup to host the app and send traffic to the back end
+* '''ln -s /etc/nginx/sites-available/talentdb /etc/nginx/sites-enabled/talentdb'''
 
 # Next steps include
 * In GKE, find and edit the 'gospel-ca' deployment on ~line 55. 
 * Change all the IP addresses that refer to gospel back-end's nginx web-service with the domain name of font-end. I built talentdb.gus.io with a valid letsencrypt certificate else Chrome was unhappy. Consider doing the same. Using the VM + it's IP + DNS pointed to it was the simplest to get the cert.
+* While the gospel-ca deployment works on waking up a new gospel-ca pod with 6 containers (it may take a while) do:
+*   use "kubectl -n gospel delete xxxxx" to delete the pods signer-xxxxx and 3x backend-xxxx. 
+
 
 # Using it
 Hitting talentdb.gus.io for me, shows the index.html file of the build directory on the VM. It also proxy-passes me to the Gospel back-end for login and auth, and the CA changes means it's sends me back to the front-end to continue using the app. (Forgive me but my site is likely offline as I kill the backend and vms when not testing/demoing this to people)
