@@ -26,7 +26,7 @@ You'll need a domain name and a certificate else chrome complains about TLS on a
 * Make a virtual machine
 * Make a DNS entry for your VM's IP
 * curl icanhazip.com (this gets you the IP you are using in case you only see your private IP from insude the VM)
-* (sudo su -) # apt update && apt -y upgrade && apt install -y certbot
+* (sudo su -) # apt update && apt -y upgrade && apt install -y dnsutils certbot
 *  certbot certonly
 
 I use certbot.eff.org to create a certificate (because it's easy and needs no nginx pre-config). Then install nginx, nodejs and npm
