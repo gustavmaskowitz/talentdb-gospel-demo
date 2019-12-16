@@ -1,15 +1,15 @@
 # Talentdb
-For context watch [my first video](https://storage.googleapis.com/talentdb-gospel-demo/Gospel%20Devrel%20Video1%20-%20GCP%20Marketplace%2CGDQ%20and%20Demo.mp4). Using gospel.tech's marketplace installer and this repo you can build a private data shring app with data-owner control and contextual access. There is a front-end component written in React using the React-boilerplate project and a backend that takes care of logins, certificates, the right to be forgotten and sharing data across company boundaries. The React code is just a viewer for the satte stored and managed in gospel. 
+For context watch [my first video](https://storage.googleapis.com/talentdb-gospel-demo/Gospel%20Devrel%20Video1%20-%20GCP%20Marketplace%2CGDQ%20and%20Demo.mp4). Using gospel.tech's marketplace installer and this repo you can build a private data shring app with data-owner control and contextual access. There is a front-end component written in React using the React-boilerplate project and a backend that takes care of logins, certificates, the right to be forgotten and sharing data across company boundaries. The React code is just a viewer for the state stored and managed in gospel. 
 
-It's special because A.) You can share data with fine grained access-control as structured data, a graph of relationships or blobs(e.g. PDF, photos) without needing to copy it between orgs; b.) You get immutable read-receipts, detail of which person or account read a row or column of a table, or accessed a file. Any attempt to view or read leaves a trace n 3 blockchain peers - This means you can verify after trusting data into a shared state and control it/stop sharing. It's the basis of controlling your private information, while allowing it to be used to serve you.
+It's special because A.) You can share data with fine grained access-control as structured data, a graph of relationships or blobs(e.g. PDF, photos) without needing to copy it between orgs; b.) You get immutable read-receipts, detail of which person or account read a row or column of a table, or accessed a file. Any attempt to view or read leaves a trace n 3 Hyperledger Fabric blockchain peers - This means you can verify after trusting data into a shared state and control it/stop sharing. It's the basis of controlling your private information, while allowing it to be used to serve you.
 
 # Video Tutorial
 * Watch me build this app from this guide [in video 2](https://storage.googleapis.com/talentdb-gospel-demo/Gospel%20Devrel%20Video2%20-%20Building%20your%20own%20talentdb.mp4)
 
-# PREREQS
+# Prerequisites
+* 1 hour 
 * Google Cloud account
-* Your own domain; ability to add DNS records. (you can try using IPs but chrome gets unhappy - maybe try safari)
-* 1 hour
+* Your own domain and rights to add DNS records (You can try using IPs but chrome gets unhappy and everything fails)
 
 # Build a Gospel backend
 * Go to https://console.cloud.google.com/
@@ -29,7 +29,7 @@ It's special because A.) You can share data with fine grained access-control as 
 
 # Installing NodeJS and NPM:
 
-I'm using Ubuntu 18.04 so followed [this guide](https://www.digitalocean.com/community/tutorials/how-to-install-node-js-on-ubuntu-18-04). Once you have the latest versions of node and npm, move on
+For production you should make this a docker image, but for dev purposes it's nice to edit, save, run without any additional overhead. I'm using Ubuntu 18.04 so followed [this guide](https://www.digitalocean.com/community/tutorials/how-to-install-node-js-on-ubuntu-18-04). Once you have the latest versions of node and npm, move on
 *  apt install -y nodejs npm nginx git
 * (This only gets you node v8.10.0 and npm 3.5.2 from Ubuntu so follow the tut above to get to Node v10.17.0 and npm 6.11.3
 *  curl -sL https://deb.nodesource.com/setup_10.x -o nodesource_setup.sh
@@ -38,13 +38,14 @@ I'm using Ubuntu 18.04 so followed [this guide](https://www.digitalocean.com/com
 
 Grab the code & set it up
 
-* git clone https://github.com/gustavmaskowitz/talentdb-gospel-demo.git
-* cd talentdb-gospel-demo/
-* (You can find the SDK's download URL in the Admin UI of the Gospel back-end)
+* git clone <this repo>
+* cd <this repo>
 * npm install gospel-sdk-js-1.5.0-296.tgz
 
+You'll find the Gospel SDK is already there but for a newer version check the Downloads section of the Gospel Admin UI
+
 Configure the app
-* edit app/config.js
+* edit app/config.js (to add your app's name and review the tables in play)
 * npm install
 * npm run build
 * Now copy the build directory to /var/www/app
@@ -55,7 +56,7 @@ Configure the app
 * In GKE, find and edit the 'gospel-ca' deployment
 * Change all the IP addresses that refer to gospel back-end's nginx web-service with the domain name of font-end. I built talentdb.gus.io with a valid letsencrypt certificate else Chrome was unhappy. Consider doing the same. Using the VM + it's IP + DNS pointed to it was the simplest to get the cert.
 * While the gospel-ca deployment works on waking up a new gospel-ca pod with 6 containers (it may take a while) do:
-*   use "kubectl -n gospel delete xxxxx" to delete the pods signer-xxxxx and 3x backend-xxxx. 
+*   use "kubectl -n gospel delete pod/xxxxx" to delete the pods signer-xxxxx and 3x backend-xxxx. 
 
 
 # Hit it!
